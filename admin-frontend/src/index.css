@@ -1,0 +1,510 @@
+/* EventCo-inspired dark admin UI (no Tailwind required) */
+:root {
+  --bg: #07090f;
+  --panel: rgba(17, 20, 30, 0.72);
+  --panel2: rgba(17, 20, 30, 0.52);
+  --border: rgba(255, 255, 255, 0.08);
+  --text: rgba(255, 255, 255, 0.76);
+  --muted: rgba(255, 255, 255, 0.52);
+  --title: rgba(255, 255, 255, 0.92);
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  --accent: #a855f7;
+  --accent2: #22c55e;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+  --radius: 16px;
+  --font: system-ui, "Segoe UI", Roboto, sans-serif;
+
+  color-scheme: dark;
+  font-family: var(--font);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1000px 700px at 10% -10%, rgba(168, 85, 247, 0.25), transparent 55%),
+    radial-gradient(900px 600px at 100% 10%, rgba(34, 197, 94, 0.16), transparent 55%),
+    radial-gradient(900px 600px at 40% 120%, rgba(59, 130, 246, 0.10), transparent 55%),
+    var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.appShell {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  padding: 18px 14px;
+  border-right: 1px solid var(--border);
+  background: linear-gradient(to bottom, rgba(10, 12, 18, 0.82), rgba(10, 12, 18, 0.55));
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 10px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--panel2);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+}
+
+.brandMark {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.9), rgba(59, 130, 246, 0.6));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.brandName {
+  font-weight: 700;
+  color: var(--title);
+  letter-spacing: 0.2px;
+}
+
+.brandSub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.nav {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.navItem {
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.70);
+  background: transparent;
+  transition: 160ms ease;
+}
+
+.navItem:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.navItem.active {
+  background: linear-gradient(to right, rgba(168, 85, 247, 0.20), rgba(255, 255, 255, 0.03));
+  border-color: rgba(168, 85, 247, 0.25);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.sidebarFooter {
+  margin-top: auto;
+  padding: 12px 10px;
+  border-top: 1px solid var(--border);
+}
+
+.who {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.whoAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.whoName {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 650;
+}
+
+.whoRole {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-top: 2px;
+}
+
+.main {
+  padding: 26px 28px;
+}
+
+.pageTitle {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.pageTitle h1 {
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.card {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.btn {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.86);
+  padding: 10px 12px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 160ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.btn.primary {
+  background: linear-gradient(to right, rgba(168, 85, 247, 0.55), rgba(59, 130, 246, 0.50));
+  border-color: rgba(168, 85, 247, 0.35);
+}
+
+.btn.btn-angled {
+  border-radius: 8px;
+  clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+  padding-left: 14px;
+  padding-right: 14px;
+  min-height: 40px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 11px;
+  box-shadow: 0 14px 30px rgba(2, 6, 23, 0.4);
+}
+
+.btn.btn-angled.primary {
+  background: linear-gradient(120deg, rgba(29, 78, 216, 0.78), rgba(109, 40, 217, 0.82));
+  border-color: rgba(129, 140, 248, 0.65);
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.35), 0 16px 35px rgba(76, 29, 149, 0.38);
+}
+
+.btn.btn-angled.primary:hover {
+  box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.55), 0 18px 38px rgba(76, 29, 149, 0.55);
+}
+
+.btn.btn-angled.ghost {
+  background: rgba(15, 23, 42, 0.62);
+  border-color: rgba(148, 163, 184, 0.28);
+}
+
+.btn.btn-angled.danger {
+  background: linear-gradient(120deg, rgba(153, 27, 27, 0.86), rgba(220, 38, 38, 0.82));
+  border-color: rgba(248, 113, 113, 0.55);
+  color: rgba(254, 242, 242, 0.96);
+}
+
+.btn.ghost {
+  background: transparent;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(10, 12, 18, 0.45);
+  color: rgba(255, 255, 255, 0.88);
+  outline: none;
+}
+
+.input:focus {
+  border-color: rgba(168, 85, 247, 0.45);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.18);
+}
+
+.team-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.team-form-field > span {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(203, 213, 225, 0.88);
+  font-weight: 700;
+}
+
+.team-field-input {
+  min-height: 44px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.56);
+  border-color: rgba(148, 163, 184, 0.28);
+}
+
+.team-field-input:hover {
+  border-color: rgba(129, 140, 248, 0.45);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.employeeEventCard {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(168, 85, 247, 0.2);
+  background:
+    linear-gradient(130deg, rgba(17, 20, 30, 0.86), rgba(12, 16, 24, 0.72)),
+    radial-gradient(800px 200px at 100% 0%, rgba(168, 85, 247, 0.12), transparent 60%);
+}
+
+.employeeEventCard::after {
+  content: "";
+  position: absolute;
+  inset: auto -40% -70% 40%;
+  height: 170px;
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.14), transparent 70%);
+  pointer-events: none;
+}
+
+.employeeAssignedPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  background: rgba(34, 197, 94, 0.12);
+  color: rgba(134, 239, 172, 0.95);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.employeeEventActions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .appShell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+}
+
+/* Landing page */
+.landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.landingGlow {
+  position: absolute;
+  inset: -40% -20% auto -20%;
+  height: 80%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(168, 85, 247, 0.22), transparent 55%);
+  pointer-events: none;
+}
+
+.landingHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.landingBrand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.landingBrandText {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.02em;
+}
+
+.landingHeaderLinks {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.landingMain {
+  flex: 1;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 24px 28px 48px;
+  position: relative;
+  z-index: 1;
+}
+
+.landingKicker {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(168, 85, 247, 0.95);
+  margin: 0 0 12px;
+  font-weight: 650;
+}
+
+.landingTitle {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 16px;
+  max-width: 720px;
+}
+
+.landingTitleAccent {
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 700;
+}
+
+.landingSub {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0 0 36px;
+  max-width: 560px;
+}
+
+.landingCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.landingCard {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 100%;
+}
+
+.landingCardIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.landingCardTitle {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  font-weight: 750;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.landingCardDesc {
+  margin: 0 0 18px;
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.landingCardActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.landingFooter {
+  padding: 20px 28px 28px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+/* ===== Modern Attractive Scrollbar ===== */
+
+/* Chrome, Edge, Safari */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #22c55e, #06b6d4);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #16a34a, #0891b2);
+}
+
+/* Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #06b6d4 rgba(255, 255, 255, 0.05);
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0px;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar {
+  width: 8px;
+}

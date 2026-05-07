@@ -1,0 +1,14 @@
+Backend/node_modules/
+admin-frontend/node_modules/
+Backend/.env
+.env
+.env.*
+dist/
+build/
+.DS_Store
+Thumbs.db
+credentials.json
+
+# Local Netlify folder
+.netlify
+
