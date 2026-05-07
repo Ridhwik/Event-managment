@@ -20,7 +20,7 @@ const connectDB = async () => {
         console.error(`[DB] Connection attempt ${attempt}/${maxRetries} failed: ${message}`);
         if (attempt >= maxRetries) {
           console.error(
-            "[DB] Mongo connection failed. Verify DATABASE_URL or ensure local MongoDB service is running."
+            "[DB] Mongo connection failed."
           );
           process.exit(1);
         }
