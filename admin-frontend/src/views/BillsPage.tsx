@@ -429,6 +429,7 @@ export function BillsPage() {
   const [activeBillId, setActiveBillId] = useState("");
   const [showCreateBill, setShowCreateBill] = useState(false);
   const [savingSheet, setSavingSheet] = useState(false);
+  const [exportingPdf, setExportingPdf] = useState(false);
 
   const { data, isLoading } = useQuery<BillsResponse>({
     queryKey: ["admin", "bills", selected?.status ?? "all"],
@@ -499,6 +500,34 @@ export function BillsPage() {
   }, [activeBillId, api, qc]);
 
   const closeBillSheet = useCallback(() => { setBillSheetData(null); setActiveBillId(""); }, []);
+
+  const handleExportPdf = useCallback(async () => {
+    if (!activeBillId) return;
+    setExportingPdf(true);
+    try {
+      const response = await api.get(`/admin/bills/${activeBillId}/export-pdf`, {
+        responseType: "blob",
+      });
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      const disposition = response.headers["content-disposition"] || "";
+      const match = disposition.match(/filename="?([^"]+)"?/);
+      link.download = match?.[1] || `bill_sheet_${activeBillId}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      setPopup({ kind: "success", title: "PDF Downloaded", message: "Bill sheet PDF has been downloaded." });
+      setTimeout(() => setPopup(null), 2500);
+    } catch (err) {
+      setPopup({ kind: "error", title: "PDF Export Failed", message: extractErrorMessage(err, "Could not generate PDF.") });
+      setTimeout(() => setPopup(null), 3200);
+    } finally {
+      setExportingPdf(false);
+    }
+  }, [activeBillId, api]);
 
   const tabCounts = useMemo(() => ({
     all: bills.length,
@@ -686,7 +715,9 @@ export function BillsPage() {
                 </div>
               </div>
               <div className="bl-sheet-modal__actions">
-                <button className="bl-btn bl-btn--ghost" onClick={() => window.print()}>🖨 Print</button>
+                <button className="bl-btn bl-btn--primary" disabled={exportingPdf} onClick={handleExportPdf}>
+                  {exportingPdf ? <><span className="bl-spin" />Generating…</> : <>📄 Export PDF</>}
+                </button>
                 <button
                   className="bl-btn bl-btn--primary"
                   disabled={savingSheet}

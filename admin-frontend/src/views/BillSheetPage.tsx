@@ -7,6 +7,7 @@ import {
   saveBillSheet,
   mapApiBillToEditable,
   mapEditableDataToApi,
+  exportBillPdf,
 } from "../api/billApi";
 import type {
   EditableBillData,
@@ -37,6 +38,7 @@ export default function BillSheetPage() {
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
+  const [exportingPdf, setExportingPdf] = useState(false);
   const activeBillId = useRef<string>("");
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━
@@ -145,10 +147,23 @@ export default function BillSheetPage() {
   );
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━
-  // PRINT HANDLER
+  // EXPORT PDF HANDLER
   // ━━━━━━━━━━━━━━━━━━━━━━━━
-  const handlePrint = useCallback(() => {
-    window.print();
+  const handleExportPdf = useCallback(async () => {
+    const billId = activeBillId.current;
+    if (!billId) return;
+    setExportingPdf(true);
+    setSaveMessage("");
+    try {
+      await exportBillPdf(billId);
+      setSaveMessage("✓ PDF downloaded");
+      setTimeout(() => setSaveMessage(""), 3000);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to export PDF";
+      setSaveMessage(`✕ ${message}`);
+    } finally {
+      setExportingPdf(false);
+    }
   }, []);
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━
@@ -199,8 +214,16 @@ export default function BillSheetPage() {
               {saveMessage}
             </span>
           )}
-          <button onClick={handlePrint} style={styles.printBtn}>
-            🖨 Print
+          <button
+            onClick={handleExportPdf}
+            style={{
+              ...styles.printBtn,
+              opacity: exportingPdf ? 0.6 : 1,
+              cursor: exportingPdf ? "wait" : "pointer",
+            }}
+            disabled={exportingPdf}
+          >
+            {exportingPdf ? "⏳ Generating…" : "📄 Export PDF"}
           </button>
         </div>
       </div>

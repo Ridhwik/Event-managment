@@ -17798,3 +17798,312 @@ body {
   box-shadow: 0 24px 80px #00000070, 0 0 0 1px #7c3aed20;
   animation: xmodal-in 0
 }
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — Bills, Sidebar, Modals, Grids
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Tablet (≤ 1024px) ── */
+@media (max-width: 1024px) {
+  .bl-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bl-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bl-sheet-modal {
+    width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .bl-sheet-backdrop {
+    padding: 0;
+  }
+
+  .bl-sheet-modal__body {
+    padding: 0.75rem;
+  }
+
+  /* Make bill sheet table scrollable */
+  .bl-sheet-modal__body > div {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ── Mobile (≤ 768px) ── */
+@media (max-width: 768px) {
+  /* Sidebar becomes a horizontal top bar */
+  .appShell {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 10px 12px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sidebar .brand {
+    padding: 8px;
+  }
+
+  .sidebar .nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+    margin-top: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+
+  .sidebar .navItem {
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .sidebar .sidebarFooter {
+    display: none;
+  }
+
+  .main {
+    padding: 16px 12px;
+  }
+
+  /* Bills header */
+  .bl-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .bl-header__title {
+    font-size: 1.4rem;
+  }
+
+  .bl-create-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.65rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  /* Stat pills */
+  .bl-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+
+  .bl-stat {
+    padding: 0.8rem 0.9rem 0.7rem;
+    border-radius: 14px;
+  }
+
+  .bl-stat__value {
+    font-size: 1.4rem;
+  }
+
+  .bl-stat__label {
+    font-size: 0.65rem;
+  }
+
+  /* Tabs */
+  .bl-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    gap: 0.35rem;
+    padding-bottom: 4px;
+  }
+
+  .bl-tab {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  /* Bill grid — single column */
+  .bl-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  /* Bill cards */
+  .bl-card {
+    border-radius: 16px;
+    padding: 1rem;
+  }
+
+  .bl-card__top {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .bl-card__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-size: 0.78rem;
+  }
+
+  .bl-card__name {
+    font-size: 0.88rem;
+  }
+
+  .bl-card__right {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0.3rem;
+  }
+
+  .bl-card__amount {
+    font-size: 1rem;
+  }
+
+  .bl-card__actions {
+    gap: 0.4rem;
+  }
+
+  .bl-btn {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 9px;
+  }
+
+  /* Create bill modal */
+  .bl-modal {
+    width: 100%;
+    max-height: 100vh;
+    border-radius: 18px;
+  }
+
+  .bl-modal__header {
+    padding: 0.9rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .bl-modal__form {
+    padding: 0 1rem 1rem;
+  }
+
+  .bl-row {
+    flex-direction: column;
+  }
+
+  .bl-modal__footer {
+    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .bl-modal__footer .bl-btn {
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  /* Bill sheet modal */
+  .bl-sheet-modal {
+    width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .bl-sheet-backdrop {
+    padding: 0;
+  }
+
+  .bl-sheet-modal__header {
+    padding: 0.8rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .bl-sheet-modal__actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .bl-sheet-modal__body {
+    padding: 0.5rem;
+  }
+
+  .bl-sheet-modal__body > div {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Toast */
+  .bl-toast {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    max-width: none;
+    min-width: 0;
+  }
+}
+
+/* ── Small phones (≤ 480px) ── */
+@media (max-width: 480px) {
+  .bl-stats-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem;
+  }
+
+  .bl-stat {
+    padding: 0.6rem 0.7rem 0.55rem;
+  }
+
+  .bl-stat__value {
+    font-size: 1.15rem;
+  }
+
+  .bl-header__title {
+    font-size: 1.2rem;
+  }
+
+  .bl-header__sub {
+    font-size: 0.75rem;
+  }
+
+  .bl-card {
+    padding: 0.8rem;
+  }
+
+  .bl-card__top {
+    gap: 0.5rem;
+  }
+
+  .pageTitle h1 {
+    font-size: 20px;
+  }
+
+  .main {
+    padding: 12px 8px;
+  }
+
+  .sidebar .nav {
+    gap: 3px;
+  }
+
+  .sidebar .navItem {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+  }
+}

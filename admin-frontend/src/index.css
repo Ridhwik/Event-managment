@@ -337,6 +337,100 @@ a {
   }
 }
 
+@media (max-width: 768px) {
+  .appShell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 10px 12px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand {
+    padding: 8px;
+  }
+
+  .brandMark {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    font-size: 0.75rem;
+  }
+
+  .brandName {
+    font-size: 0.9rem;
+  }
+
+  .brandSub {
+    display: none;
+  }
+
+  .nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+    margin-top: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navItem {
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border-radius: 10px;
+  }
+
+  .sidebarFooter {
+    display: none;
+  }
+
+  .main {
+    padding: 16px 12px;
+  }
+
+  .pageTitle {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .pageTitle h1 {
+    font-size: 20px;
+  }
+
+  .landingCards {
+    grid-template-columns: 1fr;
+  }
+
+  .landingHeader {
+    padding: 14px 16px;
+  }
+
+  .landingMain {
+    padding: 16px 16px 32px;
+  }
+
+  .landingTitle {
+    font-size: 1.6rem;
+  }
+
+  .landingHeaderLinks {
+    gap: 6px;
+  }
+}
+
 /* Landing page */
 .landing {
   min-height: 100vh;

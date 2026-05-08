@@ -2809,3 +2809,65 @@ exports.saveSectionRemarksToVendors = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+// ✅ EXPORT BILL AS PDF (tabular data + attached voucher images)
+exports.exportBillPdf = async (req, res) => {
+  try {
+    const { billId } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(billId)) {
+      return res.status(400).json({ message: "Invalid bill ID" });
+    }
+
+    const bill = await Bill.findById(billId)
+      .populate("event", "activityName startDate budget venue")
+      .populate("contactPerson", "name email phone")
+      .populate("reviewedBy", "name email")
+      .lean();
+
+    if (!bill) {
+      return res.status(404).json({ message: "Bill not found" });
+    }
+
+    // Find all bills for the same employee + event to gather all vouchers
+    const filter = { event: bill.event?._id };
+    if (bill.contactPerson?._id) {
+      filter.contactPerson = bill.contactPerson._id;
+    }
+    const allBills = await Bill.find(filter)
+      .populate("event", "activityName startDate budget venue")
+      .populate("contactPerson", "name email phone")
+      .sort({ createdAt: -1 })
+      .lean();
+
+    const { generateBillPdf } = require("../Services/BillPdfGenerator");
+
+    // Construct base URL for resolving relative voucher paths
+    const protocol = req.protocol || "http";
+    const host = req.get("host") || "localhost:3000";
+    const baseUrl = `${protocol}://${host}`;
+
+    const pdfBuffer = await generateBillPdf({
+      bill,
+      allBills: allBills.length > 0 ? allBills : [bill],
+      event: bill.event,
+      baseUrl,
+    });
+
+    const safeName = String(bill.entityName || "bill")
+      .replace(/[^a-zA-Z0-9_\-\s]/g, "")
+      .trim()
+      .replace(/\s+/g, "_")
+      .slice(0, 60);
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${safeName}_bill_sheet.pdf"`
+    );
+    res.setHeader("Cache-Control", "no-store");
+    return res.status(200).send(pdfBuffer);
+  } catch (error) {
+    console.error("[exportBillPdf] Error:", error.message);
+    return res.status(500).json({ message: error.message });
+  }
+};

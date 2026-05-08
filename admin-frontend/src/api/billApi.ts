@@ -146,3 +146,34 @@ export function mapEditableDataToApi(data: EditableBillData) {
     category: data.sectionTitle,
   };
 }
+
+// ─────────────────────────────────────────────
+// EXPORT BILL AS PDF
+// ─────────────────────────────────────────────
+export async function exportBillPdf(billId: string): Promise<void> {
+  const res = await fetch(`${API_PREFIX}/admin/bills/${billId}/export-pdf`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+    },
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error((err as { message?: string }).message || `Error ${res.status}`);
+  }
+
+  const blob = await res.blob();
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+
+  const disposition = res.headers.get("content-disposition") || "";
+  const match = disposition.match(/filename="?([^"]+)"?/);
+  link.download = match?.[1] || `bill_sheet_${billId}.pdf`;
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.URL.revokeObjectURL(url);
+}

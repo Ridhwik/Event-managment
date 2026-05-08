@@ -42,7 +42,8 @@ const {
   updateVendor,
   deleteVendor,
   getVendors,
-  getBillsByEmployeeForEvent
+  getBillsByEmployeeForEvent,
+  exportBillPdf
 } = require("../Controllers/AdminControllers");
 const {
   authenticate,
@@ -69,6 +70,7 @@ router.post("/bills", authenticate, requireAdmin, createBill);
 router.put("/bills/:id", authenticate, requireAdmin, updateBill);
 router.patch("/bills/:id/review", authenticate, requireAdmin, reviewBill);
 router.delete("/bills/:id", authenticate, requireAdmin, deleteBill);
+router.get("/bills/:billId/export-pdf", authenticate, requireAdmin, exportBillPdf);
 router.get("/dashboard/stats", authenticate, requireAdmin, getDashboardStats);
 router.get(
   "/dashboard/overview",
